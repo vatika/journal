@@ -1,0 +1,21 @@
+---
+const years = [2026, 2025];
+---
+
+<html lang="en">
+  <body style="font-family: system-ui; padding: 40px; max-width: 860px; margin: 0 auto;">
+    <header style="display:flex; gap:16px; align-items:center; margin-bottom: 28px;">
+      <a href="/" style="margin-right:auto; font-weight:700; text-decoration:none;">Home</a>
+      <a href="/books">Books</a>
+      <a href="/recommendations">Recommendations</a>
+    </header>
+
+    <h1>Books</h1>
+    <h2>By year</h2>
+    <ul>
+      {years.map((y) => (
+        <li><a href={`/books/${y}`}>{y}</a></li>
+      ))}
+    </ul>
+  </body>
+</html>
