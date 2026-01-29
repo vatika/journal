@@ -37,19 +37,19 @@ const asset = (p: string) => `${base}/${p.replace(/^\//, '')}`;
       style="width:120px; height:180px; object-fit:cover; border-radius:12px; box-shadow: 0 12px 28px rgba(0,0,0,0.14);"
     />
 
-    <div>
-      <h1 style="margin-top:0; font-size: 32px;">{book.data.title}</h1>
+<div>
+      <h1 style="margin-top:0; margin-bottom: 2px; font-size: 32px;">{book.data.title}</h1>
+      <div class="muted" style="font-size: 14px;">by {book.data.author}</div>
 
       <div class="meta" style="margin-top: 6px;">
-          {book.data.author} · Finished {book.data.finished}
+          {book.data.finished}
           {book.data.goodreads && (
             <span> · <a href={book.data.goodreads} target="_blank" rel="noopener noreferrer">Goodreads</a></span>
           )}
+          <span style="margin-left: 8px;" class="stars" set:html={stars(book.data.rating)} />
         </div>
 
-      <div class="stars" set:html={stars(book.data.rating)} />
-
-      <p class="tldr" style="font-style: italic; margin-top: 14px;">
+      <p class="tldr" style="font-style: italic; margin-top: 10px;">
         {book.data.tldr}
       </p>
     </div>
