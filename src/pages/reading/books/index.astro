@@ -19,7 +19,10 @@ const booksByYear = allBooks.reduce((acc, book) => {
 const sortedYears = Object.keys(booksByYear).sort((a, b) => Number(b) - Number(a));
 
 function stars(n: number) {
-  return '★'.repeat(n) + '☆'.repeat(5 - n);
+  const full = Math.floor(n);
+  const half = n % 1 >= 0.5 ? 1 : 0;
+  const empty = 5 - full - half;
+  return '★'.repeat(full) + (half ? '<span class="half-star"></span>' : '') + '☆'.repeat(empty);
 }
 ---
 
@@ -57,7 +60,7 @@ function stars(n: number) {
                 <h3 class="book-title">{book.data.title}</h3>
                 <div class="book-author">{book.data.author}</div>
               </div>
-              <div class="stars">{stars(book.data.rating)}</div>
+              <div class="stars" set:html={stars(book.data.rating)} />
             </a>
           ))}
         </div>

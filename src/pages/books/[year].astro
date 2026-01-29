@@ -14,7 +14,10 @@ const { year } = Astro.props as { year: number };
 const books = await getBooksByYear(year);
 
 function stars(n: number) {
-  return '★'.repeat(n) + '☆'.repeat(5 - n);
+  const full = Math.floor(n);
+  const half = n % 1 >= 0.5 ? 1 : 0;
+  const empty = 5 - full - half;
+  return '★'.repeat(full) + (half ? '<span class="half-star"></span>' : '') + '☆'.repeat(empty);
 }
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -50,7 +53,7 @@ const asset = (p: string) => `${base}/${p.replace(/^\//, '')}`;
               by {book.data.author} · {book.data.finished}
             </div>
 
-            <div class="stars">{stars(book.data.rating)}</div>
+            <div class="stars" set:html={stars(book.data.rating)} />
 
             <p class="tldr">{book.data.tldr}</p>
           </div>

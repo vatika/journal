@@ -17,7 +17,10 @@ if (!book) throw new Error(`Book not found: ${slug}`);
 const { Content } = await book.render();
 
 function stars(n: number) {
-  return '★'.repeat(n) + '☆'.repeat(5 - n);
+  const full = Math.floor(n);
+  const half = n % 1 >= 0.5 ? 1 : 0;
+  const empty = 5 - full - half;
+  return '★'.repeat(full) + (half ? '<span class="half-star"></span>' : '') + '☆'.repeat(empty);
 }
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -44,7 +47,7 @@ const asset = (p: string) => `${base}/${p.replace(/^\//, '')}`;
           )}
         </div>
 
-      <div class="stars">{stars(book.data.rating)}</div>
+      <div class="stars" set:html={stars(book.data.rating)} />
 
       <p class="tldr" style="font-style: italic; margin-top: 14px;">
         {book.data.tldr}

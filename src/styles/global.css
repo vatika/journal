@@ -270,6 +270,23 @@ a:hover {
   color: var(--star);
 }
 
+.half-star {
+  display: inline-block;
+  position: relative;
+  color: var(--star);
+}
+
+.half-star::before {
+  content: '★';
+  position: absolute;
+  overflow: hidden;
+  width: 50%;
+}
+
+.half-star::after {
+  content: '☆';
+}
+
 .tldr {
   margin-top: 10px;
   font-style: italic;
