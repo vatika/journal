@@ -44,12 +44,12 @@ const asset = (p: string) => `${base}/${p.replace(/^\//, '')}`;
           />
 
           <div>
-            <a class="title-link" href={`${base}/books/${book.slug}`}>
-              {book.data.title}
-            </a>
-
-            <div class="meta">
-              by {book.data.author} · {book.data.finished}
+<div>
+            <div style="display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap;">
+              <a class="title-link" href={`${base}/books/${book.slug}`}>
+                {book.data.title}
+              </a>
+              <span class="muted" style="font-size: 13px;">by {book.data.author} · {book.data.finished}</span>
             </div>
 
             <div class="stars" set:html={stars(book.data.rating)} />
