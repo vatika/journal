@@ -1,43 +1,94 @@
 ---
-const years = [
-  { year: 2026, href: "/books/2026" },
-  { year: 2025, href: "/books/2025" },
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const journals = [
+  {
+    title: 'Reading',
+    description: 'Notes on books I\'ve read — for readers, dreamers, and future-me.',
+    href: `${base}/reading`,
+    icon: '📚',
+    active: true,
+  },
+  {
+    title: 'Trips',
+    description: 'Adventures and places I\'ve explored around the world.',
+    href: `${base}/trips`,
+    icon: '✈️',
+    active: false,
+  },
+  {
+    title: 'Experiences',
+    description: 'Memorable moments, events, and things I\'ve tried.',
+    href: `${base}/experiences`,
+    icon: '🎭',
+    active: false,
+  },
+  {
+    title: 'Life',
+    description: 'Reflections, milestones, and personal growth.',
+    href: `${base}/life`,
+    icon: '🌱',
+    active: false,
+  },
 ];
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Reading Journal</title>
-  </head>
+<BaseLayout title="Vatika's Journal">
+  <h1>Journal</h1>
+  <p class="muted" style="max-width: 62ch;">
+    A collection of personal journals — thoughts, experiences, and memories I want to remember.
+  </p>
 
-  <body style="font-family: system-ui; padding: 40px; max-width: 860px; margin: 0 auto;">
-    <header style="display:flex; gap:16px; align-items:center; margin-bottom: 28px;">
-      <strong style="margin-right:auto;">Your Name</strong>
-      <a href="/">Home</a>
-      <a href="/books">Books</a>
-      <a href="/recommendations">Recommendations</a>
-    </header>
+  <div style="display: grid; gap: 16px; margin-top: 28px;">
+    {journals.map((journal) => (
+      <a
+        href={journal.active ? journal.href : undefined}
+        class={`card journal-card ${!journal.active ? 'coming-soon' : ''}`}
+        style={`text-decoration: none; color: inherit; display: flex; align-items: center; gap: 18px; ${!journal.active ? 'opacity: 0.5; cursor: default;' : ''}`}
+      >
+        <div class="journal-icon" style="font-size: 32px;">{journal.icon}</div>
+        <div>
+          <h2 style="margin: 0; font-size: 22px;">
+            {journal.title}
+            {!journal.active && <span style="font-size: 12px; color: var(--muted); margin-left: 8px; font-weight: normal;">(coming soon)</span>}
+          </h2>
+          <p class="muted" style="margin: 4px 0 0; font-size: 15px;">{journal.description}</p>
+        </div>
+      </a>
+    ))}
+  </div>
+</BaseLayout>
 
-    <main>
-      <h1 style="margin-bottom: 8px;">Reading Journal</h1>
-      <p style="color:#444; margin-top:0; max-width: 60ch;">
-        Hi — I’m <strong>Your Name</strong>. I read mainly <em>[genres/topics]</em>. This is where I track what I read
-        and what I thought about it.
-      </p>
+<style>
+  .journal-card:not(.coming-soon):hover {
+    transform: translateY(-2px);
+  }
 
-      <section style="margin-top: 28px; padding: 16px; border: 1px solid #eee; border-radius: 14px;">
-        <h2 style="margin-top:0;">Books by year</h2>
-        <ul>
-          {years.map((y) => (
-            <li><a href={y.href}>{y.year}</a></li>
-          ))}
-        </ul>
-        <p style="color:#666; margin-bottom:0;">
-          (We’ll make these year pages next.)
-        </p>
-      </section>
-    </main>
-  </body>
-</html>
+  .journal-card.coming-soon {
+    pointer-events: none;
+  }
+</style>
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const years = [2026, 2025];
+---
+
+<BaseLayout title="Reading Journal">
+  <h1>Reading Journal</h1>
+  <p class="muted" style="max-width: 62ch;">
+    A small, quiet corner of the internet where I keep notes on books I’ve read — for readers, dreamers, and future-me.
+  </p>
+
+  <div class="card" style="margin-top: 28px;">
+    <h2 style="margin-top:0;">Books by year</h2>
+    <ul style="margin: 10px 0 0; padding-left: 18px;">
+      {years.map((y) => (
+        <li><a href={`${base}/books/${y}`}>{y}</a></li>
+      ))}
+    </ul>
+  </div>
+</BaseLayout>

@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getBooksByYear } from '../../../lib/books';
+
+export async function getStaticPaths() {
+  const years = [2026, 2025];
+  return years.map((year) => ({
+    params: { year: String(year) },
+    props: { year },
+  }));
+}
+
+const { year } = Astro.props as { year: number };
+const books = await getBooksByYear(year);
+
+function stars(n: number) {
+  return '★'.repeat(n) + '☆'.repeat(5 - n);
+}
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const asset = (p: string) => `${base}/${p.replace(/^\//, '')}`;
+---
+
+<BaseLayout title={`Books in ${year}`}>
+  <h1>Books in {year}</h1>
+  <p class="muted">{books.length} {books.length === 1 ? 'book' : 'books'} finished</p>
+
+  {books.length === 0 ? (
+    <div class="card empty-state">
+      <div class="empty-state-icon">📚</div>
+      <p class="empty-state-text">No books finished yet this year. Time to start reading!</p>
+    </div>
+  ) : (
+    <div style="display:grid; gap: 14px; margin-top: 18px;">
+      {books.map((book) => (
+        <article class="card book-card">
+          <img
+            class="cover"
+            src={asset(book.data.cover)}
+            alt={`Cover of ${book.data.title}`}
+            loading="lazy"
+          />
+
+          <div>
+            <a class="title-link" href={`${base}/reading/books/${book.slug}`}>
+              {book.data.title}
+            </a>
+
+            <div class="meta">
+              by {book.data.author} · {book.data.finished}
+            </div>
+
+            <div class="stars">{stars(book.data.rating)}</div>
+
+            <p class="tldr">{book.data.tldr}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  )}
+</BaseLayout>
