@@ -38,13 +38,10 @@ function stars(n: number) {
   ) : (
     sortedYears.map((year) => (
       <section class="year-section">
-        <div class="year-header">
+<div class="year-header">
           <h2 class="year-title">
             <a href={`${base}/reading/books/${year}`}>{year}</a>
           </h2>
-          <span class="year-count">
-            {booksByYear[year].length} {booksByYear[year].length === 1 ? 'book' : 'books'}
-          </span>
         </div>
 
         <div class="card">

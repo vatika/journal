@@ -26,7 +26,6 @@ const asset = (p: string) => `${base}/${p.replace(/^\//, '')}`;
 
 <BaseLayout title={`Books in ${year}`}>
   <h1>Books in {year}</h1>
-  <p class="muted">{books.length} {books.length === 1 ? 'book' : 'books'} finished</p>
 
   {books.length === 0 ? (
     <div class="card empty-state">
