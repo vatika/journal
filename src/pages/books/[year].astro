@@ -35,16 +35,17 @@ const asset = (p: string) => `${base}/${p.replace(/^\//, '')}`;
   ) : (
     <div style="display:grid; gap: 14px; margin-top: 18px;">
       {books.map((book) => (
-        <article class="card book-card">
-          <img
-            class="cover"
-            src={asset(book.data.cover)}
-            alt={`Cover of ${book.data.title}`}
-            loading="lazy"
-          />
+<article class="card book-card">
+          <a href={`${base}/books/${book.slug}`}>
+            <img
+              class="cover"
+              src={asset(book.data.cover)}
+              alt={`Cover of ${book.data.title}`}
+              loading="lazy"
+            />
+          </a>
 
           <div>
-<div>
             <div style="display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap;">
               <a class="title-link" href={`${base}/books/${book.slug}`}>
                 {book.data.title}
