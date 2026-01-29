@@ -44,7 +44,7 @@ function stars(n: number) {
           </h2>
         </div>
 
-        <div class="card">
+<div class="card">
           {booksByYear[year].map((book) => (
             <a href={`${base}/reading/books/${book.slug}`} class="book-list-item" style="text-decoration: none; color: inherit;">
               <img
@@ -53,9 +53,9 @@ function stars(n: number) {
                 alt={`Cover of ${book.data.title}`}
                 loading="lazy"
               />
-              <div class="book-info">
-                <h3 class="book-title">{book.data.title}</h3>
-                <div class="book-author">{book.data.author}</div>
+              <div class="book-info" style="display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap;">
+                <span class="book-title">{book.data.title}</span>
+                <span class="book-author">by {book.data.author} · {book.data.finished}</span>
               </div>
               <div class="stars" set:html={stars(book.data.rating)} />
             </a>
