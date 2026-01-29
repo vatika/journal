@@ -41,14 +41,14 @@ const asset = (p: string) => `${base}/${p.replace(/^\//, '')}`;
       <div style="display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px;">
         <h1 style="margin: 0; font-size: 32px;">{book.data.title}</h1>
         <span class="muted" style="font-size: 14px;">by {book.data.author} · {book.data.finished}</span>
+        <span class="stars" set:html={stars(book.data.rating)} />
       </div>
 
-      <div class="meta" style="margin-top: 6px;">
-          {book.data.goodreads && (
-            <a href={book.data.goodreads} target="_blank" rel="noopener noreferrer">Goodreads</a>
-          )}
-          <span style={book.data.goodreads ? "margin-left: 8px;" : ""} class="stars" set:html={stars(book.data.rating)} />
+      {book.data.goodreads && (
+        <div class="meta" style="margin-top: 6px;">
+          <a href={book.data.goodreads} target="_blank" rel="noopener noreferrer">View on Goodreads</a>
         </div>
+      )}
 
       <p class="tldr" style="font-style: italic; margin-top: 10px;">
         {book.data.tldr}
