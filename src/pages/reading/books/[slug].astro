@@ -25,19 +25,17 @@ const asset = (p: string) => `${base}/${p.replace(/^\//, '')}`;
 ---
 
 <BaseLayout title={`${book.data.title} — Reading Journal`}>
-  <a class="muted" href={`${base}/reading/books/${book.data.finished.slice(0, 4)}`}>← Back to year</a>
+  <a class="muted" href={`${base}/reading/books/${book.data.finished.slice(0, 4)}`} style="font-size: 13px;">← Back to year</a>
 
-  <hr class="sep" />
-
-  <div class="card" style="display:grid; grid-template-columns: 160px 1fr; gap: 22px; align-items:start;">
+  <div class="card" style="margin-top: 12px; display:grid; grid-template-columns: 120px 1fr; gap: 18px; align-items:start;">
     <img
       src={asset(book.data.cover)}
       alt={`Cover of ${book.data.title}`}
-      style="width:160px; height:240px; object-fit:cover; border-radius:16px; box-shadow: 0 16px 34px rgba(0,0,0,0.14);"
+      style="width:120px; height:180px; object-fit:cover; border-radius:12px; box-shadow: 0 12px 28px rgba(0,0,0,0.14);"
     />
 
     <div>
-      <h1 style="margin-top:0;">{book.data.title}</h1>
+      <h1 style="margin-top:0; font-size: 32px;">{book.data.title}</h1>
 
       <div class="meta" style="margin-top: 6px;">
           {book.data.author} · Finished {book.data.finished}
@@ -52,11 +50,8 @@ const asset = (p: string) => `${base}/${p.replace(/^\//, '')}`;
         {book.data.tldr}
       </p>
     </div>
-  </div>
 
-  <h2 style="margin-top: 42px;">Notes</h2>
-  <div class="card">
-    <article>
+    <article style="grid-column: 1 / -1; border-top: 1px solid var(--border); margin-top: 10px; padding-top: 10px;">
       <Content />
     </article>
   </div>

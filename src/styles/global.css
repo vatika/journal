@@ -62,7 +62,7 @@ body::before {
 
 .container {
   max-width: 880px;
-  margin: 70px auto;
+  margin: 32px auto;
   padding: 0 24px;
 }
 
@@ -78,7 +78,7 @@ body::before {
   display: flex;
   gap: 22px;
   align-items: center;
-  margin-bottom: 56px;
+  margin-bottom: 24px;
   font-family: ui-sans-serif, system-ui;
   font-size: 14px;
   letter-spacing: 0.4px;
