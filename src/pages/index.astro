@@ -70,25 +70,3 @@ const journals = [
     pointer-events: none;
   }
 </style>
----
-import BaseLayout from '../layouts/BaseLayout.astro';
-
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const years = [2026, 2025];
----
-
-<BaseLayout title="Reading Journal">
-  <h1>Reading Journal</h1>
-  <p class="muted" style="max-width: 62ch;">
-    A small, quiet corner of the internet where I keep notes on books I’ve read — for readers, dreamers, and future-me.
-  </p>
-
-  <div class="card" style="margin-top: 28px;">
-    <h2 style="margin-top:0;">Books by year</h2>
-    <ul style="margin: 10px 0 0; padding-left: 18px;">
-      {years.map((y) => (
-        <li><a href={`${base}/books/${y}`}>{y}</a></li>
-      ))}
-    </ul>
-  </div>
-</BaseLayout>
