@@ -40,8 +40,11 @@ const asset = (p: string) => `${base}/${p.replace(/^\//, '')}`;
       <h1 style="margin-top:0;">{book.data.title}</h1>
 
       <div class="meta" style="margin-top: 6px;">
-        {book.data.author} · Finished {book.data.finished}
-      </div>
+          {book.data.author} · Finished {book.data.finished}
+          {book.data.goodreads && (
+            <span> · <a href={book.data.goodreads} target="_blank" rel="noopener noreferrer">Goodreads</a></span>
+          )}
+        </div>
 
       <div class="stars">{stars(book.data.rating)}</div>
 

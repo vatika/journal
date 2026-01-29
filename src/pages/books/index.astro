@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getAllBooks } from '../../lib/books';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const asset = (p: string) => `${base}/${p.replace(/^\//, '')}`;
+
+const allBooks = await getAllBooks();
+
+// Group books by year
+const booksByYear = allBooks.reduce((acc, book) => {
+  const year = book.data.finished.slice(0, 4);
+  if (!acc[year]) acc[year] = [];
+  acc[year].push(book);
+  return acc;
+}, {} as Record<string, typeof allBooks>);
+
+// Sort years in descending order
+const sortedYears = Object.keys(booksByYear).sort((a, b) => Number(b) - Number(a));
+
+function stars(n: number) {
+  return '★'.repeat(n) + '☆'.repeat(5 - n);
+}
+---
+
+<BaseLayout title="Books">
+  <h1>Books</h1>
+  <p class="muted">All the books I've read, organized by year.</p>
+
+  {sortedYears.length === 0 ? (
+    <div class="card empty-state">
+      <div class="empty-state-icon">📚</div>
+      <p class="empty-state-text">No books yet. Time to start reading!</p>
+    </div>
+  ) : (
+    sortedYears.map((year) => (
+      <section class="year-section">
+        <div class="year-header">
+          <h2 class="year-title">
+            <a href={`${base}/books/${year}`}>{year}</a>
+          </h2>
+          <span class="year-count">
+            {booksByYear[year].length} {booksByYear[year].length === 1 ? 'book' : 'books'}
+          </span>
+        </div>
+
+        <div class="card">
+          {booksByYear[year].map((book) => (
+            <a href={`${base}/books/${book.slug}`} class="book-list-item" style="text-decoration: none; color: inherit;">
+              <img
+                class="cover-small"
+                src={asset(book.data.cover)}
+                alt={`Cover of ${book.data.title}`}
+                loading="lazy"
+              />
+              <div class="book-info">
+                <h3 class="book-title">{book.data.title}</h3>
+                <div class="book-author">{book.data.author}</div>
+              </div>
+              <div class="stars">{stars(book.data.rating)}</div>
+            </a>
+          ))}
+        </div>
+      </section>
+    ))
+  )}
+</BaseLayout>

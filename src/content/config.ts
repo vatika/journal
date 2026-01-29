@@ -11,6 +11,7 @@ const books = defineCollection({
     tldr: z.string(),
     recommended: z.boolean().default(true),
     tags: z.array(z.string()).default([]),
+    goodreads: z.string().url().optional(),
   }),
 });
 

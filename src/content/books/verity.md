@@ -9,6 +9,7 @@ recommended: false
 tags:
   - thriller
   - fiction
+goodreads: https://www.goodreads.com/book/show/59344312-verity
 ---
 
 ## The Backdrop
